@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/97ef1d65-5a13-4f6a-8729-1655275dadf0/resourceGroups/MyDevOps/subscriptions/97ef1d65-5a13-4f6a-8729-1655275dadf0/resourceGroups/MyDevOps/providers/Microsoft.Web/sites/node-ms-conference-app",
+    "appService.deploySubpath": "."
+}
