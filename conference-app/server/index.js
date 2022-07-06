@@ -1,3 +1,4 @@
+let appInsights = require('applicationinsights');
 const express = require('express');
 const createError = require('http-errors');
 const path = require('path');
@@ -10,6 +11,22 @@ const routes = require('./routes');
 const app = express();
 
 const config = configs[app.get('env')];
+
+//console.log(config.appInsight.disabled);
+
+//appInsights.defaultClient.config.disableAppInsights = config.appInsight.disabled;
+appInsights.setup(`${config.appInsight.connectionString}`)
+  .setAutoDependencyCorrelation(true)
+  .setAutoCollectRequests(true)
+  .setAutoCollectPerformance(true, true)
+  .setAutoCollectExceptions(true)
+  .setAutoCollectDependencies(true)
+  .setAutoCollectConsole(true)
+  .setUseDiskRetryCaching(true)
+  .setSendLiveMetrics(false)
+  .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
+  .start();
+
 
 const speakers = new Speakers(config);
 const feedback = new Feedback(config);
@@ -56,6 +73,6 @@ app.use((err, req, res, next) => {
 });
 
 //app.listen(3080);
-app.listen(8080);
+app.listen(config.port);
 
 module.export = app;

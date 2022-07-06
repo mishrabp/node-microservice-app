@@ -1,8 +1,21 @@
 #!/usr/bin/env node
-
+let appInsights = require('applicationinsights');
 const http = require('http');
 
 const config = require('../config')[process.env.NODE_ENV || 'development'];
+
+//appInsights.defaultClient.config.disableAppInsights = config.appInsight.disabled;
+appInsights.setup(`${config.appInsight.connectionString}`)
+  .setAutoDependencyCorrelation(true)
+  .setAutoCollectRequests(true)
+  .setAutoCollectPerformance(true, true)
+  .setAutoCollectExceptions(true)
+  .setAutoCollectDependencies(true)
+  .setAutoCollectConsole(true)
+  .setUseDiskRetryCaching(true)
+  .setSendLiveMetrics(false)
+  .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
+  .start();
 
 const log = config.log();
 const service = require('../server/service')(config);

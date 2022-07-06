@@ -8,9 +8,10 @@ const CircuitBreaker = require('../lib/CircuitBreaker');
 const circuitBreaker = new CircuitBreaker();
 
 class FeedbackService {
-  constructor({ serviceRegistryUrl, serviceVersionIdentifier }) {
-    this.serviceVersionIdentifier = serviceVersionIdentifier;
-    this.serviceRegistryUrl = serviceRegistryUrl;
+  constructor({ serviceRegistry }) {
+    this.serviceRegistryUrl = serviceRegistry.url;
+    this.serviceVersionIdentifier = serviceRegistry.versionIdentifier;
+    this.serviceProtocol = serviceRegistry.serviceProtocol;
     this.cache = {};
   }
 
@@ -18,7 +19,7 @@ class FeedbackService {
     const { ip, port } = await this.getService('feedback-service');
     return this.callService({
       method: 'get',
-      url: `http://${ip}:${port}/list`,
+      url: `${this.serviceProtocol}://${ip}:${port}/list`,
     });
   }
 

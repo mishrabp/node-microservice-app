@@ -12,9 +12,10 @@ const CircuitBreaker = require('../lib/CircuitBreaker');
 const circuitBreaker = new CircuitBreaker();
 
 class SpeakersService {
-  constructor({ serviceRegistryUrl, serviceVersionIdentifier }) {
-    this.serviceRegistryUrl = serviceRegistryUrl;
-    this.serviceVersionIdentifier = serviceVersionIdentifier;
+  constructor({ serviceRegistry }) {
+    this.serviceRegistryUrl = serviceRegistry.url;
+    this.serviceVersionIdentifier = serviceRegistry.versionIdentifier;
+    this.serviceProtocol = serviceRegistry.serviceProtocol;
     this.cache = {};
   }
 
@@ -23,7 +24,7 @@ class SpeakersService {
     return this.callService({
       method: 'get',
       responseType: 'stream',
-      url: `http://${ip}:${port}/images/${path}`,
+      url: `${this.serviceProtocol}://${ip}:${port}/images/${path}`,
     });
   }
 
@@ -31,7 +32,7 @@ class SpeakersService {
     const { ip, port } = await this.getService('speakers-service');
     return this.callService({
       method: 'get',
-      url: `http://${ip}:${port}/names`,
+      url: `${this.serviceProtocol}://${ip}:${port}/names`,
     });
   }
 
@@ -39,7 +40,7 @@ class SpeakersService {
     const { ip, port } = await this.getService('speakers-service');
     return this.callService({
       method: 'get',
-      url: `http://${ip}:${port}/list-short`,
+      url: `${this.serviceProtocol}://${ip}:${port}/list-short`,
     });
   }
 
@@ -47,7 +48,7 @@ class SpeakersService {
     const { ip, port } = await this.getService('speakers-service');
     return this.callService({
       method: 'get',
-      url: `http://${ip}:${port}/list`,
+      url: `${this.serviceProtocol}://${ip}:${port}/list`,
     });
   }
 
@@ -55,7 +56,7 @@ class SpeakersService {
     const { ip, port } = await this.getService('speakers-service');
     return this.callService({
       method: 'get',
-      url: `http://${ip}:${port}/artwork`,
+      url: `${this.serviceProtocol}://${ip}:${port}/artwork`,
     });
   }
 
@@ -63,7 +64,7 @@ class SpeakersService {
     const { ip, port } = await this.getService('speakers-service');
     return this.callService({
       method: 'get',
-      url: `http://${ip}:${port}/speaker/${shortname}`,
+      url: `${this.serviceProtocol}://${ip}:${port}/speaker/${shortname}`,
     });
   }
 
@@ -71,7 +72,7 @@ class SpeakersService {
     const { ip, port } = await this.getService('speakers-service');
     return this.callService({
       method: 'get',
-      url: `http://${ip}:${port}/artwork/${shortname}`,
+      url: `${this.serviceProtocol}://${ip}:${port}/artwork/${shortname}`,
     });
   }
 

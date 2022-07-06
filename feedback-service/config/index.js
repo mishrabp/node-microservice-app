@@ -20,6 +20,14 @@ module.exports = {
     data: {
       feedback: path.join(__dirname, '../data/feedback.json'),
     },
+    serviceregistry: {
+      ip: "localhost",
+      port: "3080",
+    },
+    appInsight: {
+      disabled: true,
+      connectionString: "InstrumentationKey=0bde1037-3aa3-4d11-bf82-60d8ce95eb2d;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
+    }, 
   },
   production: {
     name,
@@ -29,6 +37,14 @@ module.exports = {
     data: {
       feedback: path.join(__dirname, '../data/feedback.json'),
     },
+    serviceregistry: {
+      ip: "node-ms-feedbackservice.azurewebsites.net",
+      port: "443",
+    },
+    appInsight: {
+      disabled: false,
+      connectionString: "InstrumentationKey=0bde1037-3aa3-4d11-bf82-60d8ce95eb2d;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
+    }, 
   },
   test: {
     name,
@@ -38,5 +54,13 @@ module.exports = {
     data: {
       speakers: path.join(__dirname, '../data/speakers.json'),
     },
+    serviceregistry: {
+      ip: "localhost",
+      port: "3080",
+    },
+    appInsight: {
+      disabled: true,
+      connectionString: "InstrumentationKey=0bde1037-3aa3-4d11-bf82-60d8ce95eb2d;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
+    }, 
   },
 };

@@ -1,9 +1,23 @@
 #!/usr/bin/env node
+let appInsights = require('applicationinsights');
 const axios = require('axios');
 
 const http = require('http');
 
 const config = require('../config')[process.env.NODE_ENV || 'development'];
+
+//appInsights.defaultClient.config.disableAppInsights = config.appInsight.disabled;
+appInsights.setup(`${config.appInsight.connectionString}`)
+  .setAutoDependencyCorrelation(true)
+  .setAutoCollectRequests(true)
+  .setAutoCollectPerformance(true, true)
+  .setAutoCollectExceptions(true)
+  .setAutoCollectDependencies(true)
+  .setAutoCollectConsole(true)
+  .setUseDiskRetryCaching(true)
+  .setSendLiveMetrics(false)
+  .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
+  .start();
 
 const log = config.log();
 const service = require('../server/service')(config);
@@ -12,11 +26,18 @@ const server = http.createServer(service);
 
 // Important - a service should not have a fixed port but should randomly choose one
 //server.listen(process.env.PORT || 3000);
-server.listen(0);
+server.listen(8080);
 
 server.on('listening', () => {
-  const registerService = () => axios.put(`http://localhost:3000/register/${config.name}/${config.version}/${server.address().port}`);
-  const unregisterService = () => axios.put(`http://localhost:3000/register/${config.name}/${config.version}/${server.address().port}`);
+/*  const registerService = () => axios.put(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${server.address().port}`)
+    .catch(err => log.fatal(err));
+  const unregisterService = () => axios.delete(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${server.address().port}`)
+    .catch(err => log.fatal(err));
+*/
+  const registerService = () => axios.put(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${config.serverregistry.ip}/${config.serverregistry.port}`)
+    .catch(err => log.fatal(err));;
+  const unregisterService = () => axios.put(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${config.serverregistry.ip}/${config.serverregistry.port}`)
+    .catch(err => log.fatal(err));;
   registerService();
   const interval = setInterval(registerService,20000);
   const cleanup = async () => {
