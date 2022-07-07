@@ -43,7 +43,7 @@ module.exports = {
     },
     appInsight: {
       disabled: false,
-      connectionString: "InstrumentationKey=300906ba-d0f5-4782-bbd6-66dd722f959b;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
+      connectionString: "InstrumentationKey=0bde1037-3aa3-4d11-bf82-60d8ce95eb2d;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
     }, 
     log: () => getLogger(name, version, 'info'),
   },
