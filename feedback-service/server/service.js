@@ -24,6 +24,9 @@ module.exports = (config) => {
       return next(err);
     }
   });
+  
+  //supress favicon 404 error in microservices
+  service.get('/favicon.ico', (req, res) => res.status(204));
 
   // eslint-disable-next-line no-unused-vars
   service.use((error, req, res, next) => {
