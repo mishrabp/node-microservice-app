@@ -19,15 +19,21 @@ module.exports = (config) => {
 
   service.get('/list', async (req, res, next) => {
     try {
-      return res.json(await feedback.getList());
+      return res.status(200).json(await feedback.getList());
     } catch (err) {
       return next(err);
     }
   });
   
   //supress favicon 404 error in microservices
-  //service.get('/favicon.ico', (req, res) => res.status(204).end());
-
+  service.get('/favicon.ico', async (req, res, next) => {
+    try {
+      return res.status(204);
+    } catch (err) {
+      return next(err);
+    }
+  });
+  
   // eslint-disable-next-line no-unused-vars
   service.use((error, req, res, next) => {
     res.status(error.status || 500);
