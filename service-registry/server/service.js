@@ -1,4 +1,8 @@
-const express = require('express');
+
+
+// Add your instrumentation key or use the APPLICATIONINSIGHTSKEY environment variable on your production machine to start collecting data.
+var ai = require('applicationinsights');
+ai.setup(process.env.APPLICATIONINSIGHTSKEY || 'your_instrumentation_key').start();const express = require('express');
 const ServiceRegistry = require('./lib/ServiceRegistry')
 
 const service = express();
@@ -31,7 +35,7 @@ module.exports = (config) => {
     return res.json({result: serviceKey});
   });
 
-  service.delete("/register/:servicename/:serviceversion/:serviceip/:serviceport", (req, res) => {
+  service.delete("/unregister/:servicename/:serviceversion/:serviceip/:serviceport", (req, res) => {
     const {servicename, serviceversion, serviceip, serviceport} = req.params;
 
     const serviceKey = serviceRegistry
@@ -39,7 +43,7 @@ module.exports = (config) => {
     return res.json({result: serviceKey});
   });
 
-  service.delete("/register/:servicename/:serviceversion/:serviceport", (req, res) => {
+  service.delete("/unregister/:servicename/:serviceversion/:serviceport", (req, res) => {
     const {servicename, serviceversion, serviceport} = req.params;
 //    const serviceip = req.connection.remoteAddress.includes('::') ? `[${req.connection.remoteAddress}]` : req.connection.remoteAddress;
     const serviceip = req.connection.remoteAddress;

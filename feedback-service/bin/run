@@ -35,7 +35,7 @@ server.on('listening', () => {
 */
   const registerService = () => axios.put(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${config.serviceregistry.ip}/${config.serviceregistry.port}`)
   .catch(err => log.fatal(err));;
-  const unregisterService = () => axios.put(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${config.serviceregistry.ip}/${config.serviceregistry.port}`)
+  const unregisterService = () => axios.delete(`https://node-ms-serviceregistry.azurewebsites.net/unregister/${config.name}/${config.version}/${config.serviceregistry.ip}/${config.serviceregistry.port}`)
   .catch(err => log.fatal(err));;
 
 
