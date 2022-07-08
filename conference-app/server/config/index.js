@@ -2,22 +2,24 @@ module.exports = {
   development: {
     sitename: 'Roux Meetups [Development]',
     serviceRegistry: {
-      url: 'http://localhost:3080',
+      url: 'https://node-ms-serviceregistry.azurewebsites.net',
       versionIdentifier: "1.x.x",
-      serviceProtocol: "http"
+      serviceRegistryProtocol: "https",
+      serviceProtocol: "https",
     },
     appInsight: {
       disabled: true,
       connectionString: "InstrumentationKey=0bde1037-3aa3-4d11-bf82-60d8ce95eb2d;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
     },
-    port: 8080, 
+    port: 8081, 
   },
   test: {
     sitename: 'Roux Meetups [Test]',
     serviceRegistry: {
       url: 'http://localhost:3080',
       versionIdentifier: "1.x.x",
-      serviceProtocol: "http"
+      serviceRegistryProtocol: "http",
+      serviceProtocol: "http",
     },
     appInsight: {
       disabled: true,
@@ -30,6 +32,7 @@ module.exports = {
     serviceRegistry: {
       url: 'https://node-ms-serviceregistry.azurewebsites.net',
       versionIdentifier: "1.x.x",
+      serviceRegistryProtocol: "https",
       serviceProtocol: "https",
     },
     appInsight: {

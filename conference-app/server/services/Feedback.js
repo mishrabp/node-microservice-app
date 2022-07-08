@@ -12,11 +12,13 @@ class FeedbackService {
     this.serviceRegistryUrl = serviceRegistry.url;
     this.serviceVersionIdentifier = serviceRegistry.versionIdentifier;
     this.serviceProtocol = serviceRegistry.serviceProtocol;
+    this.serviceRegistryProtocol = serviceRegistry.serviceRegistryProtocol;
     this.cache = {};
   }
 
   async getList() {
     const { ip, port } = await this.getService('feedback-service');
+    //this.serviceProtocol = "https";
     return this.callService({
       method: 'get',
       url: `${this.serviceProtocol}://${ip}:${port}/list`,

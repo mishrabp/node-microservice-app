@@ -12,9 +12,6 @@ const app = express();
 
 const config = configs[app.get('env')];
 
-//console.log(config.appInsight.disabled);
-
-//appInsights.defaultClient.config.disableAppInsights = config.appInsight.disabled;
 appInsights.setup(`${config.appInsight.connectionString}`)
   .setAutoDependencyCorrelation(true)
   .setAutoCollectRequests(true)
@@ -43,7 +40,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/favicon.ico', (req, res) => res.sendStatus(204));
+// app.get('/favicon.ico', (req, res) => res.sendStatus(204));
 
 app.use(async (req, res, next) => {
   try {
@@ -63,7 +60,7 @@ app.use('/', routes({
 app.use((req, res, next) => next(createError(404, 'File not found')));
 
 // eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
+app.use( ( err, req, res ) => {
   res.locals.message = err.message;
   const status = err.status || 500;
   res.locals.status = status;
@@ -72,7 +69,11 @@ app.use((err, req, res, next) => {
   return res.render('error');
 });
 
-//app.listen(3080);
-app.listen(config.port);
+
+app.listen(config.port || 8080);
+
+console.log(
+  `Hi there! I'm listening on port ${config.port } in ${process.env.NODE_ENV} mode.`,
+);
 
 module.export = app;

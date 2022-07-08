@@ -16,6 +16,7 @@ class SpeakersService {
     this.serviceRegistryUrl = serviceRegistry.url;
     this.serviceVersionIdentifier = serviceRegistry.versionIdentifier;
     this.serviceProtocol = serviceRegistry.serviceProtocol;
+    this.serviceRegistryProtocol = serviceRegistry.serviceRegistryProtocol;
     this.cache = {};
   }
 
