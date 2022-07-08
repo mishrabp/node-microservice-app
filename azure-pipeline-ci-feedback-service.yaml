@@ -21,7 +21,7 @@ variables:
   webAppName: 'node-ms-feedbackservice'
 
   # Environment name
-  environmentName: 'node-ms-feedbackservice'
+  environmentName: 'production'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -42,6 +42,7 @@ stages:
       displayName: 'Install Node.js'
 
     - script: |
+        cd feedback-service
         npm install
         npm run build --if-present
         npm run test --if-present
