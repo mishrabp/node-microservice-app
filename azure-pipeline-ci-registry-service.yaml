@@ -9,7 +9,7 @@ trigger:
     - main
   paths:
     include:
-    - feedback-service/*
+    - service-registry/*
     - azure-pipeline-ci-registry-service.yaml
 
 variables:
