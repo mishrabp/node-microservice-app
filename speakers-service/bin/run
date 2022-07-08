@@ -24,7 +24,7 @@ const service = require('../server/service')(config);
 const server = http.createServer(service);
 
 // Important - a service should not have a fixed port but should randomly choose one
-server.listen(config.port || 8080);
+server.listen(8080);
 
 server.on('listening', () => {
   const registerService = () => axios.put(`${config.serviceregistry.protocol}://${config.serviceregistry.ip}:${config.serviceregistry.port}/register/${config.name}/${config.version}/${config.ipaddress}/${config.port}`)
