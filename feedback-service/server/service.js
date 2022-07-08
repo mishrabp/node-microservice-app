@@ -28,7 +28,7 @@ module.exports = (config) => {
   //supress favicon 404 error in microservices
   service.get('/favicon.ico', async (req, res, next) => {
     try {
-      return res.status(204);
+      return res.status(204).end();
     } catch (err) {
       return next(err);
     }
