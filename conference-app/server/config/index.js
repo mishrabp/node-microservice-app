@@ -2,7 +2,7 @@ module.exports = {
   development: {
     sitename: 'Roux Meetups [Development]',
     serviceRegistry: {
-      url: 'http://localhost:3080/',
+      url: 'http://localhost:3080',
       versionIdentifier: "1.x.x",
       serviceProtocol: "http"
     },
@@ -15,7 +15,7 @@ module.exports = {
   test: {
     sitename: 'Roux Meetups [Test]',
     serviceRegistry: {
-      url: 'http://localhost:3080/',
+      url: 'http://localhost:3080',
       versionIdentifier: "1.x.x",
       serviceProtocol: "http"
     },
@@ -28,7 +28,7 @@ module.exports = {
   production: {
     sitename: 'Roux Meetups',
     serviceRegistry: {
-      url: 'https://node-ms-serviceregistry.azurewebsites.net/',
+      url: 'https://node-ms-serviceregistry.azurewebsites.net',
       versionIdentifier: "1.x.x",
       serviceProtocol: "https",
     },
