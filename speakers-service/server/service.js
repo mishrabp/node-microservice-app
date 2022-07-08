@@ -16,7 +16,10 @@ module.exports = (config) => {
     });
   }
 
-  service.use('/images/',express.static(config.data.images))
+  service.use('/images/',express.static(config.data.images));
+
+  //supress favicon 404 error in microservices
+  service.get('/favicon.ico', (req, res) => res.status(204));
 
   service.get('/list', async (req, res, next) => {
     try{
