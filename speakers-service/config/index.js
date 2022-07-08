@@ -15,13 +15,16 @@ module.exports = {
     name,
     version,
     serviceTimeout: 30,
+    ipaddress: "localhost",
+    port: "8080",
     data: {
       images: path.join(__dirname, '../data/images'),
       speakers: path.join(__dirname, '../data/speakers.json'),
     },
-    serverregistry: {
-      ip: "localhost",
-      port: "3080",
+    serviceregistry: {
+      ip: "node-ms-serviceregistry.azurewebsites.net",
+      port: "443",
+      protocol: "https",
     },
     appInsight: {
       disabled: true,
@@ -33,13 +36,16 @@ module.exports = {
     name,
     version,
     serviceTimeout: 30,
+    ipaddress: "node-ms-speakerservice.azurewebsites.net",
+    port: "443",
     data: {
       images: path.join(__dirname, '../data/images'),
       speakers: path.join(__dirname, '../data/speakers.json'),
     },
-    serverregistry: {
-      ip: "node-ms-speakerservice.azurewebsites.net",
+    serviceregistry: {
+      ip: "node-ms-serviceregistry.azurewebsites.net",
       port: "443",
+      protocol: "https",
     },
     appInsight: {
       disabled: false,
@@ -51,13 +57,16 @@ module.exports = {
     name,
     version,
     serviceTimeout: 30,
+    ipaddress: "node-ms-speakerservice.azurewebsites.net",
+    port: "443",
     data: {
       images: path.join(__dirname, '../data/images'),
       speakers: path.join(__dirname, '../data/speakers.json'),
     },
-    serverregistry: {
+    serviceregistry: {
       ip: "localhost",
       port: "3080",
+      protocol: "http",
     },
     appInsight: {
       disabled: true,

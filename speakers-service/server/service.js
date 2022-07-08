@@ -1,4 +1,5 @@
 const express = require('express');
+
 const service = express();
 
 const Speakers = require('./lib/Speakers');
@@ -16,60 +17,58 @@ module.exports = (config) => {
     });
   }
 
-  service.use('/images/',express.static(config.data.images));
+  service.use('/images/', express.static(config.data.images));
 
-  //supress favicon 404 error in microservices
-  //service.get('/favicon.ico', (req, res) => res.status(204).end());
+
+  // supress favicon 404 error in microservices
+  service.get('/favicon.ico', (req, res) => res.sendStatus(204));
 
   service.get('/list', async (req, res, next) => {
-    try{
+    try {
       return res.json(await speakers.getList());
-    }catch(err){
+    } catch (err) {
       return next(err);
     }
   });
 
   service.get('/list-short', async (req, res, next) => {
-    try{
+    try {
       return res.json(await speakers.getListShort());
-    }catch(err){
+    } catch (err) {
       return next(err);
     }
   });
 
   service.get('/names', async (req, res, next) => {
-    try{
+    try {
       return res.json(await speakers.getNames());
-    }catch(err){
+    } catch (err) {
       return next(err);
     }
-
   });
 
   service.get('/artwork', async (req, res, next) => {
-    try{
+    try {
       return res.json(await speakers.getAllArtwork());
-    }catch(err){
+    } catch (err) {
       return next(err);
     }
-
   });
 
   service.get('/speaker/:shortname', async (req, res, next) => {
-    try{
-      const {shortname} = req.params;
+    try {
+      const { shortname } = req.params;
       return res.json(await speakers.getSpeaker(shortname));
-    }catch(err){
+    } catch (err) {
       return next(err);
     }
-
   });
 
   service.get('/artwork/:shortname', async (req, res, next) => {
-    try{
-      const {shortname} = req.params;
+    try {
+      const { shortname } = req.params;
       return res.json(await speakers.getArtworkForSpeaker(shortname));
-    }catch(err){
+    } catch (err) {
       return next(err);
     }
   });

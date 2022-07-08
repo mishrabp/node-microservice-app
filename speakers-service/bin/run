@@ -24,24 +24,19 @@ const service = require('../server/service')(config);
 const server = http.createServer(service);
 
 // Important - a service should not have a fixed port but should randomly choose one
-server.listen(process.env.PORT || 8080);
+server.listen(config.port || 8080);
 
 server.on('listening', () => {
-  /*  const registerService = () => axios.put(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${server.address().port}`)
-      .catch(err => log.fatal(err));
-    const unregisterService = () => axios.delete(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${server.address().port}`)
-      .catch(err => log.fatal(err));
-  */
-  const registerService = () => axios.put(`https://node-ms-serviceregistry.azurewebsites.net/register/${config.name}/${config.version}/${config.serverregistry.ip}/${config.serverregistry.port}`)
+  const registerService = () => axios.put(`${config.serviceregistry.protocol}://${config.serviceregistry.ip}:${config.serviceregistry.port}/register/${config.name}/${config.version}/${config.ipaddress}/${config.port}`)
     .catch(err => log.fatal(err));
-  const unregisterService = () => axios.delete(`https://node-ms-serviceregistry.azurewebsites.net/unregister/${config.name}/${config.version}/${config.serverregistry.ip}/${config.serverregistry.port}`)
+  const unregisterService = () => axios.delete(`${config.serviceregistry.protocol}://${config.serviceregistry.ip}:${config.serviceregistry.port}/unregister/${config.name}/${config.version}/${config.ipaddress}/${config.port}`)
     .catch(err => log.fatal(err));
 
   registerService();
 
   const interval = setInterval(registerService, 20000);
   const cleanup = async () => {
-    clearInterval(interval);  
+    clearInterval(interval); 
     await unregisterService();
   };
 
