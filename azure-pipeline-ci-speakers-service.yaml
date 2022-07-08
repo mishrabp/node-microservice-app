@@ -9,7 +9,7 @@ trigger:
     - main
   paths:
     include:
-    - feedback-service/*
+    - speakers-service/*
     - azure-pipeline-ci-speakers-service.yaml
 
 variables:
