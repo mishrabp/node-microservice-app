@@ -58,11 +58,11 @@ stages:
       inputs:
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
         includeRootFolder: false
-        archiveType: 'tar'
-        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz
+        archiveType: 'zip'
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
 
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
 - stage: Deploy
@@ -86,5 +86,5 @@ stages:
               appType: webAppLinux
               appName: $(webAppName)
               runtimeStack: 'NODE|16 LTS'
-              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).tar.gz
+              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               startUpCommand: 'npm run start'
