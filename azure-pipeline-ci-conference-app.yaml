@@ -52,17 +52,17 @@ stages:
         npm run test --if-present
       displayName: 'npm install, build and test'
     
-    
+
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
         includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        archiveType: 'tar'
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz
         replaceExistingArchive: true
 
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz
       artifact: drop
 
 - stage: Deploy
@@ -86,5 +86,5 @@ stages:
               appType: webAppLinux
               appName: $(webAppName)
               runtimeStack: 'NODE|16 LTS'
-              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).tar.gz
               startUpCommand: 'npm run start'
