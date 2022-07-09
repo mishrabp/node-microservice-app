@@ -17,7 +17,16 @@ module.exports = (config) => {
     });
   }
 
-  service.use('/images/', express.static(config.data.images));
+  //  service.use('/images/', express.static(config.data.images));
+
+  service.get('/images/:path/:image', async (req, res, next) => {
+    try {
+      const { path, image } = req.params;
+      return res.redirect(`https://devops-microservices.azureedge.net/${path}/${image}`);
+    } catch (err) {
+      return next(err);
+    }
+  });
 
 
   // supress favicon 404 error in microservices
