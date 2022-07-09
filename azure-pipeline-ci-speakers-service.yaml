@@ -48,6 +48,7 @@ stages:
         cp -R ./speakers-service/* ./
         rm -rdf speakers-service
         rm -rf *.yaml
+        rm -rdf data/images
         npm install
         npm run build --if-present
         npm run test --if-present
