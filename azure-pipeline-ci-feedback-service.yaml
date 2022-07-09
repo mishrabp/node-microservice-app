@@ -47,6 +47,7 @@ stages:
         rm -rdf speakers-service
         cp -R ./feedback-service/* ./
         rm -rdf feedback-service
+        rm -rf *.yaml
         npm install
         npm run build --if-present
         npm run test --if-present
